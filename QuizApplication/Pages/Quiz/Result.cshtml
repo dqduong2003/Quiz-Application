@@ -1,0 +1,44 @@
+﻿@page
+@model QuizApplication.Pages.Quiz.ResultModel
+@{
+    ViewData["Title"] = "Quiz Results";
+}
+
+<h2>Quiz Results</h2>
+
+<p>Quiz: @Model.Quiz.Title</p>
+<p>Your score: @Model.Score</p>
+
+@foreach (var question in Model.Questions)
+{
+    <h4>@question.Text</h4>
+    <ul>
+        @foreach (var answer in question.Answers)
+        {
+            // Determine if this answer is correct or selected by the user
+            bool isCorrect = answer.AnswerId == question.CorrectAnswerId;
+            bool isSelected = Model.SelectedAnswers.ContainsKey(question.QuestionId) && Model.SelectedAnswers[question.QuestionId] == answer.AnswerId;
+
+            // Apply CSS classes for correct/incorrect answers
+            var answerClass = isCorrect ? "correct" : isSelected ? "incorrect" : "";
+
+            <li class="@answerClass">
+                @answer.Text
+            </li>
+        }
+    </ul>
+}
+
+<a href="/Quiz/Index" class="btn btn-primary">Back to Quizzes</a>
+
+<style>
+    .correct {
+        color: green;
+        font-weight: bold;
+    }
+
+    .incorrect {
+        color: red;
+        font-weight: bold;
+    }
+</style>

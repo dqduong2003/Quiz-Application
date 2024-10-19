@@ -1,0 +1,42 @@
+﻿@page "{id:int}"
+@model QuizApplication.Pages.Question.EditModel
+
+<h2>Edit Question</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Question.QuestionId" />
+
+    <div class="form-group">
+        <label asp-for="Question.Text"></label>
+        <input asp-for="Question.Text" class="form-control" />
+        <span asp-validation-for="Question.Text" class="text-danger"></span>
+    </div>
+
+    <h4>Answers</h4>
+    @for (int i = 0; i < Model.Question.Answers.Count; i++)
+    {
+        <div class="form-group">
+            <label asp-for="Question.Answers[i].Text"></label>
+            <input asp-for="Question.Answers[i].Text" class="form-control" />
+            <input type="hidden" asp-for="Question.Answers[i].AnswerId" />
+            <span asp-validation-for="Question.Answers[i].Text" class="text-danger"></span>
+        </div>
+    }
+
+    <div class="form-group">
+        <label>Correct Answer:</label>
+        <select asp-for="Question.CorrectAnswerId" class="form-control">
+@*             @foreach (var answer in Model.Question.Answers)
+            {
+                <option value="@answer.AnswerId">@answer.Text</option>
+            } *@
+            @for (int i = 0; i < Model.Question.Answers.Count; i++)
+            {
+                <option value="@i">Answer @(i + 1)</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="/Question/Manager" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,0 +1,16 @@
+﻿@page "{id:int}"
+@model QuizApplication.Pages.Question.DeleteModel
+@{
+    ViewData["Title"] = "Delete Question";
+}
+
+<h2>Delete Question</h2>
+
+<div>
+    <h4>Are you sure you want to delete the question: @Model.Question.Text?</h4>
+    <form method="post">
+        <input type="hidden" asp-for="Question.QuestionId" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-page="/Question/Manager" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

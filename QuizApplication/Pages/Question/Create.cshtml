@@ -1,0 +1,50 @@
+﻿@page
+@model QuizApplication.Pages.Question.CreateModel
+@{
+    ViewData["Title"] = "Create Question";
+}
+
+<h1>Create a New Question</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="questionText">Question Text</label>
+        <input type="text" id="questionText" class="form-control" asp-for="QuestionText" required />
+    </div>
+
+    <div class="form-group">
+        <label>Answers</label>
+        <ul>
+            @for (int i = 0; i < Model.AnswerTexts.Count; i++)
+            {
+                <li>
+                    <input type="text" class="form-control" asp-for="AnswerTexts[i]" placeholder="Answer @(i+1)" required />
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="form-group">
+        <label for="correctAnswer">Correct Answer</label>
+        <select id="correctAnswer" class="form-control" asp-for="CorrectAnswerIndex" required>
+            @for (int i = 0; i < Model.AnswerTexts.Count; i++)
+            {
+                <option value="@i">Answer @(i+1)</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="quizID">Select Quiz</label>
+        <select id="quizID" class="form-control" asp-for="QuizID" required>
+            <option value="">-- Select a Quiz --</option>
+            @foreach (var quiz in Model.Quizzes)
+            {
+                <option value="@quiz.QuizId">@quiz.Title</option>
+                // Assuming QuizID and QuizName properties
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Question</button>
+</form>

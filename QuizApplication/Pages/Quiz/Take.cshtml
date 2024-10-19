@@ -1,0 +1,51 @@
+﻿@page
+@model QuizApplication.Pages.Quiz.TakeModel
+@{
+    ViewData["Title"] = "Take Quiz - " + Model.Quiz.Title;
+}
+
+<h2>@Model.Quiz.Title</h2>
+
+<div id="timer" style="font-size: 24px; color: red;">
+    Time Remaining: <span id="timeRemaining">00:00</span>
+</div>
+
+<form method="post">
+    @foreach (var question in Model.Questions.OrderBy(_ => Guid.NewGuid()).ToList())
+    {
+        <div>
+            <p>@question.Text</p>
+            @foreach (var answer in question.Answers.OrderBy(_ => Guid.NewGuid()).ToList())
+            {
+                <div>
+                    <input type="radio" name="Question_@question.QuestionId" value="@answer.AnswerId" />
+                    <label>@answer.Text</label>
+                </div>
+            }
+        </div>
+    }
+    <button type="submit" class="btn btn-success">Submit Quiz</button>
+</form>
+
+<script>
+    // Set the time limit for the quiz in seconds
+    var timeLimit = 30; // Example: 5 minutes
+    var timeRemaining = timeLimit;
+
+    // Function to update the timer display
+    function updateTimer() {
+        var minutes = Math.floor(timeRemaining / 60);
+        var seconds = timeRemaining % 60;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        document.getElementById('timeRemaining').innerText = minutes + ':' + seconds;
+        timeRemaining--;
+
+        // If time runs out, submit the quiz automatically
+        if (timeRemaining < 0) {
+            document.forms[0].submit(); // Submits the form
+        }
+    }
+
+    // Start the timer
+    setInterval(updateTimer, 1000);
+</script>

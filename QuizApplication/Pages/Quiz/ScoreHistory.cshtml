@@ -1,0 +1,36 @@
+﻿@page
+@model QuizApplication.Pages.Quiz.ScoreHistoryModel
+@{
+    ViewData["Title"] = "Score History";
+}
+
+<h2>Your Score History</h2>
+
+@if (Model.UserScores == null || !Model.UserScores.Any())
+{
+    <p>No score history available.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Quiz ID</th>
+                <th>Score</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var score in Model.UserScores)
+            {
+                <tr>
+                    <td>@score.Id</td>
+                    <td>@Model.QuizTitles[score.QuizId]</td>
+                    <td>@score.Score</td>
+                    <td>@score.Timestamp.ToLocalTime().ToString("g")</td> <!-- Format timestamp to local time -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}

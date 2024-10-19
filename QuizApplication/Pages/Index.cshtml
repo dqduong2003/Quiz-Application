@@ -1,0 +1,36 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@{
+    ViewData["Title"] = "Home - Quiz Application";
+}
+
+<div class="container mt-4">
+    <h1>Welcome to the Quiz Application</h1>
+    <p>
+        This application allows you to create, take, and track your progress in quizzes across various topics.
+        You can test your knowledge, view your scores, and challenge yourself with new questions created by others.
+    </p>
+
+    <h2>Features</h2>
+    <ul>
+        <li>Create and manage your own quizzes.</li>
+        <li>Take quizzes and receive instant feedback on your performance.</li>
+        <li>Track your score history and review previous attempts.</li>
+        <li>View available quizzes created by other users.</li>
+    </ul>
+
+    <h2>Navigation</h2>
+    <p>
+        Use the links below to navigate through the application:
+    </p>
+    <ul>
+        <li><a asp-page="/Quiz/Index">Choose a Quiz</a></li>
+        <li><a asp-page="/Quiz/Create">Create a New Quiz</a></li>
+        <li><a asp-page="/Question/Manager">Manage Questions</a></li>
+        <li><a asp-page="/ScoreHistory">View Score History</a></li>
+    </ul>
+</div>

@@ -1,0 +1,35 @@
+﻿@page
+@model QuizApplication.Pages.Quiz.IndexModel
+@{
+    ViewData["Title"] = "Choose a Quiz";
+}
+
+<h2>Available Quizzes</h2>
+<a href="/Quiz/Create" class="btn btn-primary">New Quiz</a>
+
+@if (Model.Quizzes == null || !Model.Quizzes.Any())
+{
+    <p>No quizzes available.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Quiz Title</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quiz in Model.Quizzes)
+            {
+                <tr>
+                    <td><b>@quiz.Title</b> <br />Questions: @quiz.Questions.Count</td>
+                    <td>
+                        <a href="/Quiz/Take?quizId=@quiz.QuizId" class="btn btn-primary">Take Quiz</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

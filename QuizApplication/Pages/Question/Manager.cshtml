@@ -1,0 +1,38 @@
+﻿@page
+@model QuizApplication.Pages.Question.ManagerModel
+@{
+    ViewData["Title"] = "Question Manager";
+}
+
+<h1>Manage Questions</h1>
+
+<a href="/Question/Create" class="btn btn-primary">Create New Question</a>
+
+<hr />
+
+@foreach (var question in Model.Questions)
+{
+    <div class="question-block">
+        <h3>@question.Text</h3>
+
+        <ul>
+            @foreach (var answer in question.Answers)
+            {
+                <li>
+                    @if (answer.AnswerId == question.CorrectAnswerId)
+                    {
+                        <span style="color: green; font-weight: bold;">@answer.Text</span>
+                    }
+                    else
+                    {
+                        <span>@answer.Text</span>
+                    }
+                </li>
+            }
+        </ul>
+
+        <a href="/Question/Edit/@question.QuestionId" class="btn btn-warning">Edit</a>
+        <a href="/Question/Delete/@question.QuestionId" class="btn btn-danger";">Delete</a>
+    </div>
+    <hr />
+}
